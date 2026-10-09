@@ -3073,10 +3073,12 @@ async function sendChat(suggestedMessage){
     });
     var result=await readApiJson(response,'Gemini');
     pending.remove();
-    addMsg(result.reply,'agent');
+    addMsg(result.reply+(result.model_fallback
+      ?'\n\n(Using '+result.model+' because '+result.requested_model+' was unavailable or rate-limited.)'
+      :''),'agent');
     var status=document.getElementById('chatStatus');
     status.classList.add('ready');
-    document.getElementById('chatStatusText').textContent='Gemini configured · '+(result.model||'AI connected');
+    document.getElementById('chatStatusText').textContent='Gemini connected · '+(result.model||'AI connected');
   }catch(error){
     pending.remove();
     addMsg('I could not get a Gemini response. '+(error.message||'Please try again.'),'agent');
