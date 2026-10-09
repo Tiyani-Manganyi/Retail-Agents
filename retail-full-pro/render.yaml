@@ -2,6 +2,8 @@ services:
   - type: web
     name: retail-agents-pius
     runtime: python
+    plan: free
+    rootDir: retail-full-pro
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60
     envVars:
@@ -9,6 +11,10 @@ services:
         sync: false          # fill in Render dashboard
       - key: GEMINI_API_KEY_2
         sync: false          # optional second key
+      - key: GEMINI_API_KEY_3
+        sync: false          # optional additional key when another key is rate-limited
+      - key: GEMINI_API_KEY_4
+        sync: false          # optional additional key when another key is rate-limited
       - key: STORE_PASSWORD
         sync: false          # set a unique strong password in Render
       - key: FLASK_DEBUG

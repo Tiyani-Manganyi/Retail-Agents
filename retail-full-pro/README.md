@@ -65,10 +65,12 @@ The dashboard's compact AI assistant sends each question and the current dashboa
 
 | Feature | Details |
 |---|---|
-| Default model | `gemini-2.5-flash` (override with `GEMINI_MODEL`) |
-| Context sent | Every dashboard product's stock, cost, selling/competitor price, sales history, reorder point and forecast; supplier/customer metrics, recommendations, and all five agent roles. Customer names are excluded. |
-| Configuration | Set `GEMINI_API_KEY`; optionally set `GEMINI_API_KEY_2` for key rotation |
-| Failure behavior | Shows a clear setup, rate-limit, timeout or service error instead of a canned answer |
+| Models | Choose Gemini 2.5 Flash or Gemini 2.5 Flash-Lite from the assistant. Free-tier eligibility, limits and availability depend on Google's current terms and your API project. See Google's [model](https://ai.google.dev/gemini-api/docs/models) and [pricing](https://ai.google.dev/gemini-api/docs/pricing) pages. |
+| Context sent | All loaded products (including CSV imports), stock, cost, selling/competitor price, sales history, reorder point and forecast; supplier/customer metrics, complete aggregated sales totals plus the latest 250 anonymized transactions, agent recommendations and the five agents' coordinated workstreams. Customer names are excluded. |
+| Configuration | Set `GEMINI_API_KEY`; add `GEMINI_API_KEY_2`, `GEMINI_API_KEY_3`, and further numbered keys for rotation. `GEMINI_API_KEYS` also accepts a comma- or newline-separated list. |
+| Failure behavior | Tries every configured key when one is rate-limited or rejected. If all keys are out of quota for a model, select another model or wait for quota reset. |
+
+For Render, add a **new, distinct** key in the web service's Environment settings as `GEMINI_API_KEY_3`, then save and redeploy. Create it at [Google AI Studio](https://aistudio.google.com/app/apikey); do not paste API keys into chat, source files, or GitHub. Multiple keys do not increase a shared Google project/account quota, so if they all hit the same quota, wait for reset or review the applicable quota/billing settings in Google AI Studio.
 
 The **Business Ideas** view uses the same protected server-side Gemini connection to generate five evidence-based suggestions, one for each retail agent. It uses the live store snapshot, does not execute suggestions, and requires owner/manager review. The view is also available from the mobile menu.
 

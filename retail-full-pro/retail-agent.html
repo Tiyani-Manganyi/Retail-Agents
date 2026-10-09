@@ -1504,6 +1504,14 @@ hr{border:none;border-top:1px solid var(--line);margin:20px 0}
     <button class="chat-close" onclick="closeChat()" aria-label="Close AI assistant">&times;</button>
   </div>
   <div class="chat-context">Live product stock, selling prices, costs, forecasts and all 5 agents</div>
+  <label for="chatModelSelect" style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)">
+   Model
+   <select id="chatModelSelect" aria-label="Choose Gemini model" onchange="saveChatModel()"
+     style="flex:1;min-width:0;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:inherit">
+     <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+     <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite</option>
+   </select>
+  </label>
   <div class="chat-msgs" id="chatMsgs">
     <div class="chat-msg msg-agent"><div class="msg-name">Gemini · Retail Agents</div>Hello! I can check every product's stock, cost, selling price and competitor price, and explain findings from all five agents. What would you like to know?</div>
   </div>
@@ -2890,10 +2898,20 @@ function chatStoreSnapshot(){
       segment:c.segment,days_since:c.days_since,avg_basket:c.avg_basket
     })),
     recommendations:RECS.map(r=>({
-      id:r.id,agent:r.agent,title:r.title,description:r.desc,desc:r.desc,
+      id:r.id,agent:r.agent,title:r.title,
+      description:r.agent==='customer'
+        ?'At-risk customers identified; use anonymized customer metrics for a retention recommendation.'
+        :r.desc,
+      desc:r.agent==='customer'
+        ?'At-risk customers identified; use anonymized customer metrics for a retention recommendation.'
+        :r.desc,
       risk:r.risk,status:r.status,cost:r.cost,value:r.value
     })),
-    agents:AGENTS.map(a=>({key:a.key,code:a.code,name:a.name,focus:a.text}))
+    agents:AGENTS.map(a=>({key:a.key,code:a.code,name:a.name,focus:a.text})),
+    sales:salesLog.slice(0,250).map(s=>({
+      date:s.date,sku:s.sku,qty:s.qty,sell_price:s.sellPrice,
+      revenue:s.revenue,profit:s.profit
+    }))
   };
 }
 async function readApiJson(response,service){
@@ -2925,8 +2943,9 @@ async function refreshBusinessIdeasStatus(){
     var response=await fetch('/api/gemini-status');
     if(!response.ok) throw new Error('Gemini status is unavailable');
     var result=await response.json();
+    updateChatModels(result);
     label.textContent=result.available
-      ?'Gemini connected · '+(result.model||'ready')
+      ?'Gemini connected · '+(result.model||'ready')+' · '+(result.key_count||0)+' configured key(s)'
       :'Add GEMINI_API_KEY to the server to generate ideas';
     label.style.color=result.available?'var(--green)':'var(--amber)';
   }catch(error){
@@ -2953,7 +2972,11 @@ async function generateBusinessIdeas(){
     var response=await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({message:prompt,store_data:chatStoreSnapshot()})
+      body:JSON.stringify({
+        message:prompt,
+        model:selectedChatModel(),
+        store_data:chatStoreSnapshot()
+      })
     });
     var data=await readApiJson(response,'Gemini');
     result.textContent=data.reply;
@@ -2990,13 +3013,40 @@ async function refreshChatStatus(){
     var response=await fetch('/api/gemini-status');
     if(!response.ok) throw new Error('Gemini status is unavailable');
     var result=await response.json();
+    updateChatModels(result);
     if(!result.available) throw new Error('Add GEMINI_API_KEY to the server environment');
     status.classList.add('ready');
-    label.textContent='Gemini configured · '+(result.model||'AI connected');
+    label.textContent='Gemini configured · '+(result.model||'AI connected')+' · '+(result.key_count||0)+' configured key(s)';
   }catch(error){
     status.classList.add('error');
     label.textContent=error.message||'Gemini is not connected';
   }
+}
+function selectedChatModel(){
+  var select=document.getElementById('chatModelSelect');
+  return select&&select.value?select.value:'gemini-2.5-flash';
+}
+function updateChatModels(status){
+  var select=document.getElementById('chatModelSelect');
+  if(!select||!Array.isArray(status.models)||!status.models.length) return;
+  var saved='';
+  try{saved=localStorage.getItem('retailAgentGeminiModel')||'';}catch(_error){}
+  var selected=status.models.some(model=>model.id===saved)
+    ?saved
+    :(status.models.some(model=>model.id===status.model)?status.model:status.models[0].id);
+  select.replaceChildren();
+  status.models.forEach(model=>{
+    var option=document.createElement('option');
+    option.value=model.id;
+    option.textContent=model.name;
+    select.appendChild(option);
+  });
+  select.value=selected;
+}
+function saveChatModel(){
+  try{localStorage.setItem('retailAgentGeminiModel',selectedChatModel());}catch(_error){}
+  var status=document.getElementById('chatStatusText');
+  if(status) status.textContent='Selected · '+document.getElementById('chatModelSelect').selectedOptions[0].textContent;
 }
 var chatSending=false;
 async function sendChat(suggestedMessage){
@@ -3015,7 +3065,11 @@ async function sendChat(suggestedMessage){
     var response=await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({message:msg,store_data:chatStoreSnapshot()})
+      body:JSON.stringify({
+        message:msg,
+        model:selectedChatModel(),
+        store_data:chatStoreSnapshot()
+      })
     });
     var result=await readApiJson(response,'Gemini');
     pending.remove();
