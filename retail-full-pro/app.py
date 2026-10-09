@@ -780,73 +780,127 @@ def api_chat():
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
         "generationConfig": {"temperature": 0.35, "maxOutputTokens": 1200},
     }
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{requested_model}:generateContent"
     last_status = None
     saw_quota_limit = False
     saw_invalid_key = False
-    for offset in range(len(_key_pool)):
-        key_index = (_active_key_idx + offset) % len(_key_pool)
-        try:
-            response = requests.post(
-                url,
-                headers={"x-goog-api-key": _key_pool[key_index]},
-                json=payload,
-                timeout=45,
-            )
-        except requests.Timeout:
-            return jsonify({"error": "Gemini took too long to respond. Please try again."}), 504
-        except requests.RequestException:
-            app.logger.exception("Gemini API request failed")
-            return jsonify({"error": "Could not reach Gemini. Check the server's internet connection and try again."}), 502
+    unavailable_models = set()
+    models_to_try = [requested_model] + [
+        model_id for model_id in GEMINI_MODELS if model_id != requested_model
+    ]
+    for model_id in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_id}:generateContent"
+        for offset in range(len(_key_pool)):
+            key_index = (_active_key_idx + offset) % len(_key_pool)
+            try:
+                response = requests.post(
+                    url,
+                    headers={"x-goog-api-key": _key_pool[key_index]},
+                    json=payload,
+                    timeout=45,
+                )
+            except requests.Timeout:
+                return jsonify({"error": "Gemini took too long to respond. Please try again."}), 504
+            except requests.RequestException:
+                app.logger.exception("Gemini API request failed")
+                return jsonify({"error": "Could not reach Gemini. Check the server's internet connection and try again."}), 502
 
-        if _is_quota_response(response):
-            app.logger.warning("Gemini quota/rate limit reached for configured key #%s", key_index + 1)
-            saw_quota_limit = True
-            last_status = response.status_code
-            continue
-        if response.status_code == 503:
-            last_status = response.status_code
-            continue
-        if response.status_code in (401, 403):
-            app.logger.warning("Gemini rejected configured key #%s with HTTP %s", key_index + 1, response.status_code)
-            saw_invalid_key = True
-            last_status = response.status_code
-            continue
-        if response.status_code in (400, 404):
-            app.logger.error("Gemini API rejected request with HTTP %s", response.status_code)
-            return jsonify({"error": "Gemini rejected the request. Check the configured model and API key."}), 502
-        if not response.ok:
-            app.logger.error("Gemini API returned HTTP %s", response.status_code)
-            return jsonify({"error": "Gemini is temporarily unavailable. Please try again."}), 502
+            if _is_quota_response(response):
+                app.logger.warning(
+                    "Gemini quota/rate limit reached for model %s, configured key #%s",
+                    model_id,
+                    key_index + 1,
+                )
+                saw_quota_limit = True
+                last_status = response.status_code
+                continue
+            if response.status_code == 503:
+                last_status = response.status_code
+                continue
+            if response.status_code in (401, 403):
+                app.logger.warning(
+                    "Gemini rejected configured key #%s with HTTP %s for model %s",
+                    key_index + 1,
+                    response.status_code,
+                    model_id,
+                )
+                saw_invalid_key = True
+                last_status = response.status_code
+                continue
+            if response.status_code == 404:
+                app.logger.warning(
+                    "Gemini model %s is unavailable to configured key #%s",
+                    model_id,
+                    key_index + 1,
+                )
+                unavailable_models.add(model_id)
+                last_status = response.status_code
+                continue
+            if response.status_code == 400:
+                app.logger.error(
+                    "Gemini rejected the request for model %s with HTTP 400",
+                    model_id,
+                )
+                return jsonify({
+                    "error": "Gemini rejected the request. Check the request data and configured model."
+                }), 502
+            if not response.ok:
+                app.logger.error(
+                    "Gemini API returned HTTP %s for model %s",
+                    response.status_code,
+                    model_id,
+                )
+                last_status = response.status_code
+                continue
 
-        try:
-            result = response.json()
-            answer = "".join(
-                part.get("text", "")
-                for candidate in result.get("candidates", [])
-                for part in candidate.get("content", {}).get("parts", [])
-            ).strip()
-        except (ValueError, AttributeError, TypeError):
-            answer = ""
-        if not answer:
-            return jsonify({"error": "Gemini returned an empty answer. Please try rephrasing your question."}), 502
+            try:
+                result = response.json()
+                answer = "".join(
+                    part.get("text", "")
+                    for candidate in result.get("candidates", [])
+                    for part in candidate.get("content", {}).get("parts", [])
+                ).strip()
+            except (ValueError, AttributeError, TypeError):
+                answer = ""
+            if not answer:
+                return jsonify({"error": "Gemini returned an empty answer. Please try rephrasing your question."}), 502
 
-        _active_key_idx = key_index
-        return jsonify({"reply": answer, "gemini": True, "model": requested_model})
+            _active_key_idx = key_index
+            return jsonify({
+                "reply": answer,
+                "gemini": True,
+                "model": model_id,
+                "requested_model": requested_model,
+                "model_fallback": model_id != requested_model,
+            })
 
     if last_status is not None:
         _rotate_key()
     if saw_quota_limit:
+        unavailable = ", ".join(sorted(unavailable_models))
+        unavailable_note = (
+            f" {unavailable} is also unavailable to the configured API keys."
+            if unavailable else ""
+        )
         return jsonify({
             "error": (
-                "Gemini quota is exhausted for all configured keys. Wait for the quota to reset, "
-                "or choose another available Gemini model in the assistant. If needed, add a "
-                "different key with available quota as GEMINI_API_KEY_3 (or higher) in the "
-                "server environment. Create keys in Google AI Studio; never share them in chat."
+                "Gemini quota was exhausted for one or more model/key attempts, and no configured "
+                "fallback returned a response. Wait for quota to reset or configure a model/key "
+                "with available quota in Render. "
+                "Keys in the same Google AI project can share quota; redeploying cannot restore it."
+                + unavailable_note
             ),
             "quota_exhausted": True,
             "key_count": len(_key_pool),
         }), 429
+    if unavailable_models:
+        models = ", ".join(sorted(unavailable_models))
+        return jsonify({
+            "error": (
+                f"Gemini model access failed for {models}. Verify that the configured API keys "
+                "can access a supported model in Google AI Studio."
+            ),
+            "unavailable_models": sorted(unavailable_models),
+        }), 502
     if saw_invalid_key:
         return jsonify({"error": "Gemini rejected all configured API keys. Replace or verify the keys in the server environment."}), 502
     return jsonify({"error": "Gemini is temporarily unavailable. Please try again shortly."}), 503
