@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Retail Agents — AI Agents for South African Retail</title>
+<title>Retail Agents — 10 Connected AI Agents for South African Retail</title>
+<meta name="description" content="Retail intelligence workspace with ten connected agents for demand, inventory, pricing, procurement, supplier performance, audit, finance, loss prevention, compliance and customer engagement.">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -889,7 +890,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;color:var(--ink)}
   <section class="pf-hero" id="pfTop"><div class="pf-wrap">
     <div>
       <div class="pf-pill pf-in"><b>NEW</b>AI agents built for South African retail</div>
-      <h1 class="pf-in" style="animation-delay:.08s">Stop guessing. Let <span class="pf-grad">five AI agents</span> run the numbers in your store.</h1>
+      <h1 class="pf-in" style="animation-delay:.08s">Stop guessing. Let <span class="pf-grad">10 connected AI agents</span> run the numbers in your store.</h1>
       <p class="pf-lead pf-in" style="animation-delay:.16s">Retail Agents watches demand, stock, prices, suppliers and customers every day, then tells you exactly what to do next. <b style="color:var(--ink)">You stay in control — nothing happens without your approval.</b></p>
       <div class="pf-cta pf-in" style="animation-delay:.24s"><button class="pf-btn" onclick="pfDemo()">Book a free demo →</button><button class="pf-btn ghost" onclick="pfScroll('pfProduct')">See how it works</button></div>
       <div class="pf-checks pf-in" style="animation-delay:.32s"><span>Set up with a CSV import</span><span>Works on phone &amp; desktop</span><span>Rand &amp; VAT ready</span></div>
@@ -927,7 +928,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;color:var(--ink)}
   </div></section>
 
   <section class="pf-sec pf-dark" id="pfAgents"><div class="pf-wrap">
-    <div class="pf-head pf-rev"><div class="pf-eyebrow">Meet the team</div><h2 class="pf-h2">Five specialist agents. One owner in control.</h2><p class="pf-sub">Each agent does one job well. Pick one to see what it does.</p></div>
+    <div class="pf-head pf-rev"><div class="pf-eyebrow">Meet the team</div><h2 class="pf-h2">10 connected agents. One owner in control.</h2><p class="pf-sub">Each agent does one job well. Pick one to see what it does.</p></div>
     <div class="pf-show pf-rev d1" id="pfShow"><div class="pf-tabs" id="pfTabs"></div><div class="pf-panel" id="pfPanel"></div></div>
   </div></section>
 
@@ -981,7 +982,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;color:var(--ink)}
   </div></section>
 
   <section class="pf-sec pf-final" id="pfContact"><div class="pf-wrap">
-    <div class="pf-rev"><h2>See Retail Agents working on your own store data</h2><p>Book a short demo. We'll show you the five agents, the approval queue and what they'd recommend for your shop.</p><div class="pf-checks"><span>Free, no-obligation demo</span><span>We reply quickly</span><span>Bring your product list</span></div></div>
+    <div class="pf-rev"><h2>See Retail Agents working on your own store data</h2><p>Book a short demo. We'll show you the connected agent team, the approval queue and what they'd recommend for your shop.</p><div class="pf-checks"><span>Free, no-obligation demo</span><span>We reply quickly</span><span>Bring your product list</span></div></div>
     <form class="pf-form pf-rev d1" id="pfForm" onsubmit="return pfSubmit(event,'pf')">
       <h3>Request a demo</h3><div class="s">Tell us a little about your store.</div>
       <div class="pf-2"><input id="pfName" placeholder="Your name *" autocomplete="name"><input id="pfBiz" placeholder="Store name"></div>
@@ -1258,12 +1259,18 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;color:var(--ink)}
     </div>
 
     <!-- Agent overview grid -->
-    <div class="section-head"><h2>Your Agents <span class="count-badge">5</span></h2></div>
+    <div class="section-head"><h2>Your Agents <span class="count-badge">10</span></h2><span class="pill pill-b">Connected team</span></div>
     <div class="agent-grid" id="agentGrid"></div>
+
+    <div class="section-head" style="padding-top:30px"><h2>🔗 Agent Collaboration Hub</h2><span class="pill pill-g">Shared store snapshot</span></div>
+    <div class="panel" style="margin-bottom:28px">
+      <div class="panel-head"><h3>Cross-agent signals &amp; recommended hand-offs</h3><span style="font-size:12px;color:var(--muted)">Recommendations only · owner approval required</span></div>
+      <div class="panel-body"><p style="color:var(--muted);margin-bottom:14px">Agents use the same product, supplier, customer and sales records to identify connected risks. This hub displays explainable hand-offs; it does not execute orders, contact customers or change prices.</p><div id="collaborationHub" class="agent-grid" style="margin-top:0"></div></div>
+    </div>
 
     <!-- CTA -->
     <div class="cta">
-      <h2>Run your store smarter — five agents watching every corner 24/7</h2>
+      <h2>Run your store smarter — 10 connected agents watching every corner</h2>
       <button class="btn-primary" onclick="go('queue')">View Approval Queue →</button>
     </div>
   </div>
@@ -1749,7 +1756,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;color:var(--ink)}
     <div class="section-head">
       <div>
         <h2>💡 Business Ideas</h2>
-        <p style="color:var(--muted);margin-top:4px">Practical next steps suggested by Gemini using your live store data and all five retail agents.</p>
+        <p style="color:var(--muted);margin-top:4px">Practical next steps suggested by Gemini using your live store data and all ten retail agents.</p>
       </div>
       <span class="pill pill-b">Owner approval required</span>
     </div>
@@ -1988,7 +1995,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;color:var(--ink)}
     </div>
     <button class="chat-close" onclick="closeChat()" aria-label="Close AI assistant">&times;</button>
   </div>
-  <div class="chat-context">Live product stock, selling prices, costs, forecasts and all 5 agents</div>
+  <div class="chat-context">Live products, stock, costs, supplier data, forecasts and all 10 agents</div>
   <label for="chatModelSelect" style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)">
    Model
    <select id="chatModelSelect" aria-label="Choose Gemini model" onchange="saveChatModel()"
@@ -1998,12 +2005,12 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;color:var(--ink)}
    </select>
   </label>
   <div class="chat-msgs" id="chatMsgs">
-    <div class="chat-msg msg-agent"><div class="msg-name">Gemini · Retail Agents</div>Hello! I can check every product's stock, cost, selling price and competitor price, and explain findings from all five agents. What would you like to know?</div>
+    <div class="chat-msg msg-agent"><div class="msg-name">Gemini · Retail Agents</div>Hello! I can review products, stock, supplier performance, margins, audit exceptions and findings from all ten agents. The agents share signals and only recommend actions. What would you like to know?</div>
   </div>
   <div class="chat-prompts" id="chatPrompts">
     <button onclick="sendChat('Which products need reordering, and why?')">Low stock</button>
     <button onclick="sendChat('Review the prices and margins of all products.')">Check pricing</button>
-    <button onclick="sendChat('Summarise what all five agents should focus on.')">Five agents</button>
+    <button onclick="sendChat('Summarise priorities and hand-offs across all ten agents.')">All 10 agents</button>
   </div>
   <div class="chat-input-row">
     <input id="chatInput" placeholder="Ask about products, stock or pricing…" aria-label="Ask the retail AI assistant" onkeydown="if(event.key==='Enter')sendChat()">
@@ -2102,11 +2109,16 @@ var donutChart=null, demandChart=null, custChart=null;
    AGENT DEFINITIONS
 ══════════════════════════════════════════ */
 const AGENTS = [
-  {key:"demand",     code:"DSA", emoji:"📈", name:"Demand Sensing Agent",      short:"Demand",      text:"Watches sales history, seasonality and live signals (weather, payday, holidays) to produce short-term demand forecasts."},
-  {key:"inventory",  code:"IMA", emoji:"📦", name:"Inventory Management Agent", short:"Inventory",   text:"Tracks stock levels, flags reorder points and recommends replenishment quantities using demand forecasts."},
-  {key:"pricing",    code:"PRA", emoji:"🏷️",  name:"Pricing Agent",             short:"Pricing",     text:"Recommends price adjustments based on competitor prices, stock levels and demand sensitivity, within fairness guardrails."},
-  {key:"procurement",code:"PCA", emoji:"🚚", name:"Procurement Agent",          short:"Procurement", text:"Compares supplier reliability, pricing and lead times, then recommends purchase orders and supplier switches."},
-  {key:"customer",   code:"CEA", emoji:"🛍️", name:"Customer Engagement Agent",  short:"Customers",   text:"Identifies at-risk customers and suggests targeted promotions and retention actions to bring them back."},
+  {key:"demand", code:"DSA", emoji:"📈", name:"Demand Sensing Agent", short:"Demand", text:"Watches sales history, seasonality and live signals (weather, payday, holidays) to produce short-term demand forecasts."},
+  {key:"inventory", code:"IMA", emoji:"📦", name:"Inventory Management Agent", short:"Inventory", text:"Tracks stock levels, flags reorder points and recommends replenishment quantities using demand forecasts."},
+  {key:"pricing", code:"PRA", emoji:"🏷️", name:"Pricing Agent", short:"Pricing", text:"Recommends price adjustments based on competitor prices, stock levels and demand sensitivity, within fairness guardrails."},
+  {key:"procurement", code:"PCA", emoji:"🚚", name:"Procurement Agent", short:"Procurement", text:"Compares supplier reliability, pricing and lead times, then recommends purchase orders and supplier switches."},
+  {key:"customer", code:"CEA", emoji:"🛍️", name:"Customer Engagement Agent", short:"Customers", text:"Identifies at-risk customers and suggests targeted promotions and retention actions to bring them back."},
+  {key:"supplier", code:"SPA", emoji:"🤝", name:"Supplier Performance Agent", short:"Supplier Performance", text:"Scores supplier reliability, delivery performance, price rating and variability; shares risk signals with procurement and inventory."},
+  {key:"audit", code:"IAA", emoji:"🧾", name:"Internal Audit Agent", short:"Internal Audit", text:"Flags inconsistent records, unusual price/cost relationships, missing data and decisions that need a documented review."},
+  {key:"finance", code:"FIA", emoji:"💰", name:"Financial Intelligence Agent", short:"Financial Intelligence", text:"Reviews gross margins, stock investment and recommendation costs to highlight cash-flow and profitability risks."},
+  {key:"loss", code:"LPA", emoji:"🛡️", name:"Loss Prevention Agent", short:"Loss Prevention", text:"Uses available stock and sales records to flag unusual stock movements, unexplained differences and potential shrinkage for human review."},
+  {key:"compliance", code:"CRA", emoji:"⚖️", name:"Retail Compliance Agent", short:"Compliance", text:"Checks the available retail records for pricing, approval and data-quality exceptions; it flags items for review and does not provide legal certification."}
 ];
 
 /* ══════════════════════════════════════════
@@ -2218,6 +2230,66 @@ function buildRecs(){
       cost:0, value:Math.round(atRisk.reduce((a,c)=>a+c.avg_basket,0)), stockPct:null, ropPct:null, icon:"🛍️"});
   }
 
+  // Supplier performance: compare actual delivery performance across suppliers.
+  suppliers.forEach(s=>{
+    if(Number(s.on_time)<85 || String(s.variability).toLowerCase()==='high'){
+      recs.push({id:id++,agent:"supplier",risk:Number(s.on_time)<70?"High":"Medium",status:"Pending",
+        title:"Supplier scorecard review: "+s.name,
+        desc:s.name+" records "+Number(s.on_time||0)+"% on-time delivery and "+(s.variability||"unknown")+" variability. Review recent invoices and delivery dates before changing allocation.",
+        cost:0,value:0,icon:"🤝"});
+    }
+  });
+
+  // Financial intelligence: gross-margin and working-capital signals.
+  products.forEach(p=>{
+    var margin=Number(p.price)>0?((Number(p.price)-Number(p.cost))/Number(p.price))*100:0;
+    if(margin<18){
+      recs.push({id:id++,agent:"finance",risk:margin<10?"High":"Medium",status:"Pending",
+        title:"Low gross margin: "+p.sku,
+        desc:"Estimated gross margin is "+margin.toFixed(1)+"% based on current listed cost and selling price. Verify supplier cost, wastage and price before making changes.",
+        cost:0,value:0,icon:"💰"});
+    }
+    if(Number(p.stock)>0 && Number(p.cost)>0 && Number(p.stock)*Number(p.cost)>5000){
+      recs.push({id:id++,agent:"finance",risk:"Low",status:"Pending",
+        title:"Working capital tied in stock: "+p.sku,
+        desc:"Current listed stock represents approximately R"+Math.round(Number(p.stock)*Number(p.cost)).toLocaleString('en-ZA')+" at cost. Check sell-through and replenishment timing before reducing future orders.",
+        cost:0,value:Math.round(Number(p.stock)*Number(p.cost)),icon:"💰"});
+    }
+  });
+
+  // Audit: highlight missing or suspicious values for manual verification.
+  products.forEach(p=>{
+    var issues=[];
+    if(!p.sku || !Number.isFinite(Number(p.stock)) || Number(p.stock)<0) issues.push("missing/negative stock");
+    if(!Number.isFinite(Number(p.cost)) || Number(p.cost)<=0) issues.push("missing/non-positive cost");
+    if(!Number.isFinite(Number(p.price)) || Number(p.price)<=0) issues.push("missing/non-positive selling price");
+    if(Number(p.price)>0 && Number(p.cost)>Number(p.price)) issues.push("cost exceeds selling price");
+    if(issues.length) recs.push({id:id++,agent:"audit",risk:"High",status:"Pending",title:"Audit data exception: "+(p.sku||"Unnamed product"),desc:"Please verify: "+issues.join(", ")+". No record has been changed automatically.",cost:0,value:0,icon:"🧾"});
+  });
+  suppliers.forEach(s=>{
+    if(!s.name || !Number.isFinite(Number(s.on_time)) || Number(s.on_time)<0 || Number(s.on_time)>100){
+      recs.push({id:id++,agent:"audit",risk:"Medium",status:"Pending",title:"Audit supplier record",desc:"Supplier performance data is missing or outside the expected 0–100% range. Verify the source record.",cost:0,value:0,icon:"🧾"});
+    }
+  });
+
+  // Loss prevention: compare available on-hand stock with recent sales signal.
+  products.forEach(p=>{
+    var recent=Array.isArray(p.hist)&&p.hist.length?p.hist[p.hist.length-1]:null;
+    if(Number.isFinite(Number(recent)) && Number(p.stock)===0 && Number(recent)>0){
+      recs.push({id:id++,agent:"loss",risk:"High",status:"Pending",title:"Stock/sales exception: "+p.sku,desc:"Stock is recorded as zero while the latest history value is "+recent+". Confirm stock count, sales posting and receiving records; this is an exception to investigate, not proof of loss.",cost:0,value:0,icon:"🛡️"});
+    }
+  });
+
+  // Compliance: conservative checks against the data available in this app.
+  products.forEach(p=>{
+    if(Number(p.comp_price)>0 && Number(p.price)>0 && Number(p.price)<Number(p.cost)){
+      recs.push({id:id++,agent:"compliance",risk:"High",status:"Pending",title:"Below-cost price review: "+p.sku,desc:"Listed selling price is below listed unit cost. Verify the data and document the business reason before approving a price action.",cost:0,value:0,icon:"⚖️"});
+    }
+    if(!p.sensitivity){
+      recs.push({id:id++,agent:"compliance",risk:"Low",status:"Pending",title:"Complete pricing sensitivity: "+p.sku,desc:"No demand-sensitivity label is recorded. Add a verified label before relying on automated pricing recommendations.",cost:0,value:0,icon:"⚖️"});
+    }
+  });
+
   return recs;
 }
 
@@ -2275,8 +2347,9 @@ function renderOverview(){
   AGENTS.forEach(a=>{
     var agRecs = RECS.filter(r=>r.agent===a.key);
     var agPend = agRecs.filter(r=>r.status==='Pending').length;
+    var targetView=({demand:'demand',inventory:'inventory',pricing:'pricing',customer:'customers'})[a.key]||'queue';
     g.insertAdjacentHTML('beforeend',`
-    <div class="agent-chip" onclick="go('${a.key==='demand'?'demand':a.key==='inventory'?'inventory':a.key==='pricing'?'pricing':a.key==='customer'?'customers':'queue'}')">
+    <div class="agent-chip" role="button" tabindex="0" onclick="go('${targetView}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('${targetView}');}">
       <div class="emoji">${a.emoji}</div>
       <div class="info">
         <div class="name">${a.name}</div>
@@ -2289,11 +2362,33 @@ function renderOverview(){
     </div>`);
   });
 
+  // Cross-agent collaboration: derive hand-offs from the same current store snapshot.
+  renderCollaborationHub();
+
   // Donut
   renderDonut();
 
   // Signals
   renderSignals();
+}
+
+function renderCollaborationHub(){
+  var el=document.getElementById('collaborationHub');
+  if(!el)return;
+  var lowMargin=products.filter(p=>Number(p.price)>0&&Number(p.cost)>=0&&((Number(p.price)-Number(p.cost))/Number(p.price))*100<18);
+  var lowStock=products.filter(p=>Number(p.stock)<=computeROP(p));
+  var supplierRisk=suppliers.filter(s=>Number(s.on_time)<85||String(s.variability).toLowerCase()==='high');
+  var auditIssues=RECS.filter(r=>r.agent==='audit'||r.agent==='compliance');
+  var financeIssues=RECS.filter(r=>r.agent==='finance');
+  var cards=[
+    {e:'📈 → 📦',h:'Demand → Inventory',p:lowStock.length+' product(s) at/below their reorder point. Use the demand forecast to review order quantities.',n:'Demand + Inventory',c:lowStock.length?'pill-a':'pill-g'},
+    {e:'🤝 → 🚚',h:'Supplier → Procurement',p:supplierRisk.length+' supplier(s) need a delivery/variability review before purchase allocation changes.',n:'Supplier + Procurement',c:supplierRisk.length?'pill-a':'pill-g'},
+    {e:'🏷️ → 💰',h:'Pricing → Finance',p:lowMargin.length+' product(s) have estimated gross margin below 18%. Check competitor position and margin together.',n:'Pricing + Finance',c:lowMargin.length?'pill-a':'pill-g'},
+    {e:'🧾 → ⚖️',h:'Audit → Compliance',p:auditIssues.length+' audit/compliance exception(s) are waiting for verification.',n:'Audit + Compliance',c:auditIssues.length?'pill-r':'pill-g'},
+    {e:'🛡️ → 📦',h:'Loss Prevention → Inventory',p:'Compare stock counts with sales and receiving records when an exception is flagged.',n:'Loss Prevention + Inventory',c:'pill-b'},
+    {e:'🛍️ → 📈',h:'Customers → Demand',p:'Use aggregated customer activity and product demand together when planning retention offers; avoid exposing personal details to AI.',n:'Customers + Demand',c:'pill-b'}
+  ];
+  el.innerHTML=cards.map(x=>'<div class="agent-chip" style="cursor:default"><div class="emoji" style="font-size:20px;width:54px">'+x.e+'</div><div class="info"><div class="name">'+x.h+'</div><div class="desc">'+x.p+'</div><span class="pill '+x.c+'" style="margin-top:7px">'+x.n+'</span></div></div>').join('');
 }
 
 function renderSignals(){
@@ -3456,7 +3551,7 @@ async function generateBusinessIdeas(){
   panel.hidden=true;
   try{
     requireGeminiServer();
-    var prompt='Review the live store snapshot and suggest exactly five practical business ideas, one led by each agent: Demand (DSA), Inventory (IMA), Pricing (PRA), Procurement (PCA), and Customer Engagement (CEA). Ground every idea in specific supplied products or metrics. For each, give: a short title, the evidence from store data, one clear action for the owner, and a measurable success check. Prefer low-cost actions suitable for a small South African general dealer. Do not invent data or promise guaranteed results. Do not claim to change data, contact customers, change prices, or place orders. Label any estimates as estimates. End by reminding the owner to review each idea before acting.';
+    var prompt='Review the live store snapshot and coordinate all ten agents: Demand (DSA), Inventory (IMA), Pricing (PRA), Procurement (PCA), Customer Engagement (CEA), Supplier Performance (SPA), Internal Audit (IAA), Financial Intelligence (FIA), Loss Prevention (LPA), and Retail Compliance (CRA). Return up to ten practical findings, including cross-agent hand-offs where evidence supports them. Ground every finding in supplied products or metrics. For each, give: a short title, the evidence from store data, one clear action for the owner, and a measurable success check. Prefer low-cost actions suitable for a small South African general dealer. Do not invent data or promise guaranteed results. Do not claim to change data, contact customers, change prices, or place orders. Label any estimates as estimates. End by reminding the owner to review each idea before acting.';
     var response=await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -4133,10 +4228,23 @@ var SALES={email:'sales@yourcompany.co.za',whatsapp:'' /* digits only, e.g. 2782
 /* Paste your Jotform form ID here (the number at the end of your form link, e.g. https://form.jotform.com/251234567890123 -> '251234567890123'). */
 var JOTFORM_ID='';
 var PLANS=[
- {n:'Starter',d:'For a single small shop getting started.',m:599,f:['1 store','Up to 2 users','Demand & Inventory agents','CSV import & export','Sales log & printable receipts','Email support'],cta:'Choose Starter'},
- {n:'Growth',d:'Everything you need to run the whole store smarter.',m:1299,pop:1,f:['Everything in Starter','All five AI agents','Up to 5 users with 3 roles','Analytics, reports & invoices','AI assistant & business ideas','Priority support'],cta:'Choose Growth'},
- {n:'Business',d:'For multiple branches or a guided rollout.',custom:1,f:['Everything in Growth','Multiple branches','Guided setup & staff training','Custom thresholds & rules','Dedicated support contact'],cta:'Talk to us'}
+ {n:'Free',d:'Explore the core workspace at no cost.',m:0,f:['1 store','Basic product and stock view','Demand & Inventory insights','Local demo data','No plan password required'],cta:'Start Free'},
+ {n:'Starter',d:'For a single small shop getting started.',m:599,f:['1 store','Up to 2 users','Demand & Inventory agents','CSV import & export','Sales log & printable receipts','Email support'],cta:'Unlock Starter'},
+ {n:'Growth',d:'Connected intelligence for the whole store.',m:1299,pop:1,f:['Everything in Starter','All 10 connected agents','Up to 5 users with 3 roles','Analytics, reports & invoices','AI assistant & business ideas','Priority support'],cta:'Unlock Growth'},
+ {n:'Business',d:'For multiple branches or a guided rollout.',custom:1,f:['Everything in Growth','Multiple branches','Guided setup & staff training','Custom thresholds & rules','Dedicated support contact'],cta:'Unlock Business'}
 ];
+var RETAIL_PLAN_PASSWORDS={Starter:'Start!SA26_R8vK',Growth:'Grow#SA26_M7qP',Business:'Biz@SA26_T4nW'};
+function pfChoosePlan(name){
+  var plan=PLANS.find(function(p){return p.n===name;});if(!plan)return;
+  if(name!=='Free'){
+    var entered=window.prompt('Enter the '+name+' plan password to continue:');
+    if(entered===null)return;
+    if(entered!==RETAIL_PLAN_PASSWORDS[name]){window.alert('Incorrect '+name+' plan password.');return;}
+  }
+  try{localStorage.setItem('retail-active-plan',name);}catch(e){}
+  if(name==='Business'){pfDemo('I have selected the Business plan and would like to discuss activation and rollout.');return;}
+  pfEnter();
+}
 var YEAR_FREE_MONTHS=2;
 /* ==================================================== */
 
@@ -4217,7 +4325,7 @@ function renderPlans(){
  $('pfPlans').innerHTML=PLANS.map(function(p){
   var price=p.custom?'<span class="pf-price pf-flip">Custom</span>':'<span class="pf-price pf-flip">'+money(yearly?p.m*(12-YEAR_FREE_MONTHS)/12:p.m)+'<small> /month</small></span>';
   var note=p.custom?'Tailored to your business':yearly?money(p.m*(12-YEAR_FREE_MONTHS))+' billed yearly':'Billed monthly';
-  return '<div class="pf-plan pf-rev'+(p.pop?' pop':'')+'">'+(p.pop?'<div class="badge">MOST POPULAR</div>':'')+'<h3>'+p.n+'</h3><div class="d">'+p.d+'</div>'+price+'<div class="pf-note">'+note+'</div><ul>'+p.f.map(function(f){return '<li>'+f+'</li>';}).join('')+'</ul><button class="pf-btn block'+(p.pop?'':' ghost')+'" onclick="pfDemo(\'I am interested in the '+p.n+' plan.\')">'+p.cta+'</button></div>';}).join('');
+  return '<div class="pf-plan pf-rev'+(p.pop?' pop':'')+'">'+(p.pop?'<div class="badge">MOST POPULAR</div>':'')+'<h3>'+p.n+'</h3><div class="d">'+p.d+'</div>'+price+'<div class="pf-note">'+note+'</div><ul>'+p.f.map(function(f){return '<li>'+f+'</li>';}).join('')+'</ul><button class="pf-btn block'+(p.pop?'':' ghost')+'" onclick="pfChoosePlan(\''+p.n+'\')">'+p.cta+'</button></div>';}).join('');
  document.querySelectorAll('#pfPlans .pf-rev').forEach(function(e,i){setTimeout(function(){e.classList.add('show');},60+i*90);});
 }
 function pfBill(y){yearly=y;$('pfTog').classList.toggle('an',y);document.querySelectorAll('#pfTog button').forEach(function(b,i){b.classList.toggle('on',(i===1)===y);});renderPlans();}
@@ -4251,14 +4359,42 @@ function pfSubmit(e,p){
  if(!name){$(p+'Err').textContent='Please enter your name.';return false;}
  if(!ph&&!em){$(p+'Err').textContent='Please add a phone number or an email so we can reach you.';return false;}
  var text='Hi, I would like a Retail Agents demo.\nName: '+name+(biz?'\nStore: '+biz:'')+(ph?'\nPhone: '+ph:'')+(em?'\nEmail: '+em:'')+(msg?'\nNote: '+msg:'');
- var url=SALES.whatsapp?'https://wa.me/'+SALES.whatsapp+'?text='+encodeURIComponent(text):'mailto:'+SALES.email+'?subject='+encodeURIComponent('Retail Agents demo request')+'&body='+encodeURIComponent(text);
- var ok='<div class="pf-ok"><div class="big">🎉</div><h3 style="margin:8px 0">Thanks, '+name.replace(/</g,'&lt;')+'!</h3><p style="color:var(--mut);line-height:1.6">Your '+(SALES.whatsapp?'WhatsApp':'email')+' app should open with your request ready to send. Just press send and we will be in touch.</p></div>';
- var box=p==='pm'?$('pfMBody'):$('pfForm');box.innerHTML=ok;
- window.open(url,SALES.whatsapp?'_blank':'_self');return false;
+ var box=p==='pm'?$('pfMBody'):$('pfForm');
+ box.innerHTML='<div class="pf-ok"><div class="big">⏳</div><h3 style="margin:8px 0">Sending your request…</h3><p style="color:var(--mut);line-height:1.6">Please wait.</p></div>';
+ fetch('/api/demo-request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,business:biz,phone:ph,email:em,message:msg})})
+ .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'Request could not be saved');return d;});})
+ .then(function(){
+   box.innerHTML='<div class="pf-ok"><div class="big">🎉</div><h3 style="margin:8px 0">Thanks, '+name.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];})+'!</h3><p style="color:var(--mut);line-height:1.6">Your demo request has been received. We will contact you using the details provided.</p></div>';
+ })
+ .catch(function(err){
+   var url=SALES.whatsapp?'https://wa.me/'+SALES.whatsapp+'?text='+encodeURIComponent(text):'mailto:'+SALES.email+'?subject='+encodeURIComponent('Retail Agents demo request')+'&body='+encodeURIComponent(text);
+   box.innerHTML='<div class="pf-err">We could not save the request on the server. You can still send it using WhatsApp or email.</div><button class="pf-btn block" onclick="window.open(\''+url+'\',\'_blank\')">Continue with '+(SALES.whatsapp?'WhatsApp':'email')+' →</button>';
+ });
+ return false;
 }
 
-/* Jotform in the contact section */
-if(JOTFORM_ID){var pf0=$('pfForm');if(pf0){var jw=document.createElement('div');jw.className='pf-form pf-rev d1 show';jw.id='pfForm';jw.innerHTML=jotHtml(JOTFORM_ID).replace('<h3>Book a free demo</h3>','<h3>Request a demo</h3>');pf0.replaceWith(jw);jotInit(JOTFORM_ID);}}
+/* Jotform in the contact section — loaded securely from /api/public-config */
+function installJotform(formId){
+  formId=String(formId||'').trim();
+  if(!/^\d{8,20}$/.test(formId)) return;
+  JOTFORM_ID=formId;
+  var pf0=$('pfForm');
+  if(pf0 && !pf0.querySelector('iframe')){
+    var jw=document.createElement('div');
+    jw.className='pf-form pf-rev d1 show';
+    jw.id='pfForm';
+    jw.innerHTML=jotHtml(JOTFORM_ID).replace('<h3>Book a free demo</h3>','<h3>Request a demo</h3>');
+    pf0.replaceWith(jw);
+  }
+  jotInit(JOTFORM_ID);
+}
+if(JOTFORM_ID){installJotform(JOTFORM_ID);}
+else if(window.location.protocol!=='file:'){
+  fetch('/api/public-config')
+    .then(function(r){if(!r.ok)throw new Error('Config unavailable');return r.json();})
+    .then(function(cfg){if(cfg.jotform_form_id)installJotform(cfg.jotform_form_id);})
+    .catch(function(){/* Keep the built-in demo-request form as a fallback. */});
+}
 
 /* toast */
 var toastShown=false;
